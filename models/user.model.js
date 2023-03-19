@@ -5,7 +5,11 @@ const User = mongoose.model("User",new mongoose.Schema({
     email:String,
     password:String,
     phoneNo:String,
-    accountType:String
+    accountType:String,
+    favourite:{
+        type: Boolean,
+        default: false
+    }
     // roles:[
     //     {
     //         type:mongoose.Schema.Types.ObjectId,

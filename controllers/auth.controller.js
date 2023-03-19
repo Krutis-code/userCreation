@@ -5,6 +5,7 @@ const Role = db.role;
 
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
+const { findOneAndUpdate } = require("../models/user.model");
 
 exports.signup = (req, res) => {
   const user = new User({
@@ -52,7 +53,7 @@ exports.signin = (req, res) => {
         expiresIn: 86400 // 24 hours
       });
 
-      
+
       res.status(200).send({
         id: user._id,
         username: user.username,
@@ -61,3 +62,27 @@ exports.signin = (req, res) => {
       });
     });
 };
+
+exports.getAllUsers = async (req, res) => {
+  try {
+    let { page, size } = req.query;
+    const AllUSers = await User.find().skip(page * size).limit(size);
+    if (AllUSers.length === 0) {
+      res.status(400).send({ users: [] });
+      return
+    }
+    res.status(200).send({ users: AllUSers });
+  } catch (error) {
+    res.send(error)
+  }
+}
+
+exports.setFavourite = async (req, res) => {
+  try {
+    let { email, favourite } = req.body;
+    const user = await User.findOneAndUpdate({ email: email }, { favourite }, { returnOriginal: false });
+    res.status(200).send({ updatedUserData: user });
+  } catch (error) {
+    res.send(error);
+  }
+}
