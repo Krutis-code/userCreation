@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const cors = require("cors");
 
@@ -51,7 +53,7 @@ const Category = db.category;
 const dbConfig = require('./config/db.config');
 const { MongoClient, ServerApiVersion } = require('mongodb');
 db.mongoose
-  .connect(`mongodb+srv://kruti1262:Admin%40123@cluster0.7afxutg.mongodb.net/?retryWrites=true&w=majority`, {
+  .connect(`${process.env.MONGO_URL}`, {
     useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1
   // .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
     // useNewUrlParser: true,
@@ -68,7 +70,7 @@ db.mongoose
 
 
 // set port, listen for requests
-const PORT = process.env.PORT || 8082;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
   console.log("testing in console.........");
