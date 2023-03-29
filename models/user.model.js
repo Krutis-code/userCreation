@@ -9,7 +9,13 @@ const User = mongoose.model("User",new mongoose.Schema({
     favourite:{
         type: Boolean,
         default: false
-    }
+    },
+    categories:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"Category"
+        }
+    ]
     // roles:[
     //     {
     //         type:mongoose.Schema.Types.ObjectId,
