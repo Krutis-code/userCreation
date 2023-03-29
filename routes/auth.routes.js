@@ -20,6 +20,8 @@ module.exports = function (app) {
   );
 
   app.post("/api/auth/signin", controller.signin);
-  app.get("/api/auth/getAllUsers", [authJwt.verifyToken], controller.getAllUsers);
+  app.get("/api/auth/getAllUsers",[authJwt.verifyToken],  controller.getAllUsers);
   app.post("/api/auth/setFavourite", [authJwt.verifyToken], controller.setFavourite);
+  
+  // app.get("/api/getAllCategories", controller.getAllCategories);
 };
